@@ -5,29 +5,30 @@
 
 # Polyaxon
 
-Deep Learning and Reinforcement learning library for TensorFlow for building end to end models and experiments.
+（注：Polyaxon 多轴突神经元，并不罕见但不太为人所知的一种神经元。）
 
-# Design Goals
+针对端到端的模型和实验设计的，基于 TensorFlow 的深度学习和强化学习库。
 
-Polyaxon was built with the following goals:
+# 设计目标
 
- * Modularity: The creation of a computation graph based on modular and understandable modules,
-    with the possibility to reuse and share the module in subsequent usage.
+Polyaxon 的设计目标：
 
- * Usability: Training a model should be easy enough, and should enable quick experimentations.
+ * 模块化：用模块化的、易于理解的模块创建计算图。以利于在稍后的应用中重用。
+ 
+ * 易用：训练模型非常简单，可以用来快速做实验。
 
- * Configurable: Models and experiments could be created using a YAML/Json file, but also in python files.
+ * 配置灵活：可以用 YAML 或 Json 文件来创建模型和设计实验，也可以用 Python 文件。
 
- * Extensibility: The modularity and the extensive documentation of the code makes it easy to build and extend the set of provided modules.
+ * 易扩展：由于完善的模块化和充分的代码文档，用现有模块来构建或者拓展现有模块，都非常容易。
 
- * Performance: Polyaxon is based on internal `tensorflow` code base and leverage the builtin distributed learning.
+ * 高性能：Polyaxon 低层基于 `tensorflow` 代码库，可以充分利用了其分布式学习特性。
 
- * Data Preprocessing: Polyaxon provides many pipelines and data processor to support different data inputs.
+ * 多种数据预处理接口：Polyaxon 提供了多种数据处理接口，支持各种数据输入。
 
 
-# Quick start
+# 快速入门指南
 
-## A simple linear regression
+## 基本的线性回归例程
 
 ```python
 X = np.linspace(-1, 1, 100)
@@ -58,7 +59,7 @@ estimator.train(input_fn=numpy_input_fn(
 ```
 
 
-## A reinforcement learning problem
+## 强化学习例程
 
 ```python
 env = plx.envs.GymEnvironment('CartPole-v0')
@@ -89,7 +90,7 @@ agent.train(env)
 ```
 
 
-## A classification problem
+## 分类问题例程
 
 ```python
 X_train, Y_train, X_test, Y_test = load_mnist()
@@ -143,7 +144,7 @@ xp = plx.experiments.create_experiment(experiment_config)
 xp.continuous_train_and_evaluate()
 ```
 
-## A regression problem
+## 回归问题例程
 
 ```python
 X, y = generate_data(np.sin, np.linspace(0, 100, 10000, dtype=np.float32), time_steps=7)
@@ -189,7 +190,7 @@ xp = plx.experiments.create_experiment(experiment_config)
 xp.continuous_train_and_evaluate()
 ```
 
-## Creating a distributed experiment
+## 分布式实验例程
 
 ```python
 def create_experiment(task_type, task_index=0):
@@ -222,41 +223,41 @@ def create_experiment(task_type, task_index=0):
     return plx.experiments.Experiment(estimator, input_fn, input_fn)
 ```
 
-# Installation
+# 安装
 
-To install the latest version of Polyaxon: `pip install polyaxon`
+最新版 Polyaxon 的安装方法：`pip install polyaxon`
 
-Alternatively, you can also install from source by running (from source folder): `python setup.py install`
+也可以下载源代码后，在源码目录下执行：`python setup.py install`
 
-Or you can just clone the repo `git clone https://github.com/polyaxon/polyaxon.git`, and use the commands to do everything in docker:
+还可以直接克隆此代码库（git repo） `git clone https://github.com/polyaxon/polyaxon.git`，然后在 docker 里面执行：
  
- * `cmd/rebuild` to build the docker containers.
- * `cmd/py` to start a python3 shell with all requirements installed.
- * `cmd/jupyter` to start a jupyter notebook server.
- * `cmd/tensorboard` to start a tensorboard server.
- * `cmd/test` to run the tests.   
+ * `cmd/rebuild` 创建 docker 容器。
+ * `cmd/py` 启动带有所有依赖的 python3 命令行。
+ * `cmd/jupyter` 启动 jupyter notebook 服务。
+ * `cmd/tensorboard` 启动 tensorboard 服务。
+ * `cmd/test` 运行测试。 
 
-# Examples
+# 代码范例
 
-Some examples are provided [here](examples), more examples and use cases will pushed, a contribution with an example is also appreciated.
+这里有一些例程：[例程](examples)，稍后也会继续上传更多的例程，同时也欢迎大家贡献例程。
 
-# Project status
+# 项目进展
 
-Polyaxon is in a pre-release "alpha" state. All interfaces, programming interfaces, and data structures may be changed without prior notice. 
-We'll do our best to communicate potentially disruptive changes.
+Polyaxon 还处于没有正式发布的“内部测试（alpha）”状态。所有的接口、开发接口、数据结构都有可能剧烈变动，请做好准备。
+我们会尽可能就具有潜在颠覆性的修改进行沟通。
 
-# Contributions
+# 参与开发
 
-Please follow the contribution guide line: *[Contribute to Polyaxon](CONTRIBUTING.md)*.
+如果想要参与开发，为 Polyxon 贡献代码，请遵照以下指导文件： *[为 Polyaxon贡献力量](CONTRIBUTING.md)*.
 
-# License
+# 协议
 
-MIT License
+MIT 协议
 
-# Credit
+# 致谢
 
-This work is based and was inspired from different projects, `tensorflow.contrib.learn`, `keras`, `sonnet`, `seq2seq` and many other great open source projects, see [ACKNOWLEDGEMENTS](ACKNOWLEDGEMENTS).
+本项目受很多不同的项目启发，包括 `tensorflow.contrib.learn`，`keras`，`sonnet`，`seq2seq` 以及许多其他杰出的开源项目。具体可参考 [致谢](ACKNOWLEDGEMENTS).
 
-The idea behind creating this library is to provide a tool that allow engineers and researchers to develop and experiment with end to end solutions.
+这个库的目的就是给工程师和研究人员提供一个能够开发和实验端到端的深度学习解决方法的工具。
 
-The choice of creating a new library was very important to have a complete control over the apis and future design decisions.
+为了能够全面的控制 API 设计以及其它一些决断，才选择设计这么一个新的库。
